@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {useSelector} from "react-redux";
+import Login from "./screens/Login";
+import { Route,BrowserRouter as Router, Routes } from 'react-router-dom';
+import DishesList from "./screens/DishesList";
+
 
 function App() {
+
+  const isLogged = useSelector(state => state.isLogged);
+  const dishes = useSelector(state=> state.dishes)
+
+  console.log(dishes);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+         {!isLogged?<Login />:<DishesList />}
+         
+          
     </div>
   );
 }
