@@ -15,6 +15,10 @@ const Container = styled.div`
   margin: 20px;
   background-color: #dfeeea;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: all 0.3s ease;
+  &:hover{
+    transform: scale(1.03);
+}
 `;
 
 const RankIcon = styled.div`
@@ -23,9 +27,13 @@ const RankIcon = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px auto;
+ 
 `;
 
 const Icon = styled.button`
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 2px solid #0f5b5b;
+  border-radius: 5px;
   cursor: pointer;
   display: flex;
   margin: 0 10px;
@@ -34,6 +42,10 @@ const Icon = styled.button`
   height: 30px;
   font-size: 20px;
   color: #0f5b5b;
+  transition: all 0.3s ease;
+  &:hover{
+    transform: scale(1.1);
+}
 `;
 
 const DishItem = ({ item }) => {
@@ -121,7 +133,7 @@ const DishItem = ({ item }) => {
               <LooksTwoIcon />
             </Icon>
             <Icon
-              style={rank3 ? { color: "brown" } : {}}
+              style={rank3 ? { color: "#CD7F32" } : {}}
               onClick={handleRank3}
               value={rank3}
             >

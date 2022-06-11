@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 import Login from "./screens/Login";
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom';
 import DishesList from "./screens/DishesList";
+import Leaderboard from "./screens/Leaderboard";
+import Home from "./screens/Home";
 
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-         {!isLogged?<Login />:<DishesList />}
+         {!isLogged?<Login />:<Home />}
          
           
     </div>
