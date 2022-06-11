@@ -6,6 +6,7 @@ import { users } from "../db/user.js";
 import { login, logout } from "../actions/isLoggedAction";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../actions/currentUser.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const isLogged = useSelector((state) => state.isLogged);
@@ -45,6 +46,7 @@ const Login = () => {
     event.preventDefault();
     if (validateForm()) {
       for (var i = 0; i < users.length - 1; i++) {
+        console.log(users[i].username)
         if (users[i].username === values.username) {
           if (users[i].password === values.password) {
             toast("Login Successfull", toastOptions);
@@ -57,7 +59,6 @@ const Login = () => {
           }
         } else {
           toast.error("Users doesen't exist", toastOptions);
-          break;
         }
         //   if (data.status === true) {
         //     localStorage.setItem(
@@ -65,7 +66,7 @@ const Login = () => {
         //       JSON.stringify(data.user)
         //     );
 
-        //     navigate("/");
+            // navigate("/")
         //   }
       }
     }
@@ -140,7 +141,7 @@ const FormContainer = styled.div`
     padding: 1rem;
     border: 0.1rem solid #2F5D62;
     border-radius: 0.4rem;
-    color: white;
+    color: #2F5D62;
     width: 100%;
     font-size: 1rem;
     &:focus {

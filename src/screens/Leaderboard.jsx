@@ -160,7 +160,6 @@ const Leaderboard = () => {
 
   return (
       <Div>
-      <Navbar title={"LEADERBOARD"} />
     <Container>
     <Title> LeaderBoard</Title>
             <Desc><H>*NOTE*</H><Ul>

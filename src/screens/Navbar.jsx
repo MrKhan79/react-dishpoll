@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
 import Badge from '@mui/material/Badge';
@@ -6,6 +6,7 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useDispatch } from 'react-redux';
 import { logout } from '../actions/isLoggedAction';
+import { NavLink } from 'react-router-dom';
 
 const Container = styled.div`
 height: 30px;
@@ -78,27 +79,37 @@ const Span = styled.span`
 padding-left: 5px;
 `
 
-const Navbar = (props) => {
+const Navbar = () => {
 
   const dispatch = useDispatch();
+  const [title, setTitle] = useState("HOME")
 
   const handleLogOut =()=>{
       dispatch(logout())
-  }
-     
+  };
+const listTitle =() =>{
+    setTitle("LIST")
+};
+const leaderTitle =() =>{
+    setTitle("LEADERBOARD")
+};
+const homeTitle =() =>{
+    setTitle("HOME")
+};
+
   return (
     <Container>
         <Wrapper>
         <Left>
-        <MenuItem>LIST</MenuItem>
-        <MenuItem>LEADERBOARD</MenuItem>  
-        <MenuItem>HOME</MenuItem>  
+        <MenuItem onClick={listTitle} value='LIST'><NavLink to="/dishlist">LIST</NavLink></MenuItem>
+        <MenuItem onClick={leaderTitle} value='LEADERBOARD'><NavLink to="/leaderboard">LEADERBOARD</NavLink></MenuItem>  
+        <MenuItem onClick={homeTitle} value='HOME'><NavLink to="/">HOME</NavLink></MenuItem>  
 
         </Left>
         
         <Center>
             <Logo>
-                {props.title}
+                {title}
             </Logo>
         </Center>
 

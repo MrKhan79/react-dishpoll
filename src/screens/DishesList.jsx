@@ -76,7 +76,6 @@ const Dishes = () => {
 
   return (
       <div>
-      <Navbar title={"DISH LIST"} />
 
     <Div>
       <Title>Please Rank The Food</Title>

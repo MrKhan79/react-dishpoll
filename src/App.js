@@ -5,6 +5,7 @@ import { Route,BrowserRouter as Router, Routes } from 'react-router-dom';
 import DishesList from "./screens/DishesList";
 import Leaderboard from "./screens/Leaderboard";
 import Home from "./screens/Home";
+import Navbar from "./screens/Navbar";
 
 
 function App() {
@@ -15,12 +16,21 @@ function App() {
   console.log(dishes);
 
   return (
-    <div className="App">
-         {!isLogged?<Login />:<Home />}
-         
-          
-    </div>
+    
+<div>
+         {!isLogged?(<Login />):
+         (
+         <div>
+          <Navbar />
+          <Routes>
+          <Route path="/" element={<Home />} exact></Route>
+          <Route path="/dishlist" element={<DishesList />} exact></Route>
+          <Route path="/leaderboard" element={<Leaderboard />} exact></Route>
+        </Routes></div>)}
+        </div>
+   
   );
+  
 }
 
 export default App;

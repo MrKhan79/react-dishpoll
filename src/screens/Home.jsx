@@ -4,6 +4,7 @@ import dish from './dish.png'
 import WorkspacePremiumTwoToneIcon from '@mui/icons-material/WorkspacePremiumTwoTone';
 import LeaderboardTwoToneIcon from '@mui/icons-material/LeaderboardTwoTone';
 import Navbar from './Navbar'
+import { NavLink } from 'react-router-dom';
 
 const Div = styled.div`
     display: flex;
@@ -93,25 +94,27 @@ z-index: 2;
 const Home = () => {
     return (
         <MainContainer>
-            <Navbar title={"HOME"}/>
         <Div>
         <Container>
           <Image src={dish} />
           <Title>Rank Dishes</Title>
-          <Info>
+          <NavLink to="/dishlist"> <Info>
               <Icon>
               <WorkspacePremiumTwoToneIcon style={{width:"80px", height:"80px"}}/>
               </Icon>
           </Info>
+          </NavLink>
         </Container>
         <Container>
       <Image src={"https://graphly.io/wp-content/uploads/leaderboards-podium-star.jpg"} />
       <Title>Leaderboard</Title>
-      <Info>
+      <NavLink to="/leaderboard"> <Info>
           <Icon>
           <LeaderboardTwoToneIcon style={{width:"80px", height:"80px"}}/>
           </Icon>
       </Info>
+      </NavLink>
+
     </Container>
     </Div>
     </MainContainer>
