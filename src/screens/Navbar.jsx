@@ -61,10 +61,11 @@ padding-left: 30px;
 `
 
 const MenuItem =styled.div`
-    font-size: 18px;
-cursor: pointer;
-margin-left: 25px;
-margin-right: 20px;
+    font-size: 18px !important;
+    color: white;
+cursor: pointer !important;
+margin-left: 25px !important;
+margin-right: 20px !important;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -101,9 +102,9 @@ const homeTitle =() =>{
     <Container>
         <Wrapper>
         <Left>
-        <MenuItem onClick={listTitle} value='LIST'><NavLink to="/dishlist">LIST</NavLink></MenuItem>
-        <MenuItem onClick={leaderTitle} value='LEADERBOARD'><NavLink to="/leaderboard">LEADERBOARD</NavLink></MenuItem>  
-        <MenuItem onClick={homeTitle} value='HOME'><NavLink to="/">HOME</NavLink></MenuItem>  
+        <NavLink to="/dishlist" style={{textDecoration: "none"}} > <MenuItem onClick={listTitle} value='LIST'>LIST</MenuItem></NavLink>
+        <NavLink to="/leaderboard" style={{textDecoration: "none"}}><MenuItem onClick={leaderTitle} value='LEADERBOARD'>LEADERBOARD</MenuItem></NavLink>  
+        <NavLink to="/" style={{textDecoration: "none"}}><MenuItem onClick={homeTitle} value='HOME'>HOME</MenuItem></NavLink>
 
         </Left>
         

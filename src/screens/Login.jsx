@@ -21,9 +21,9 @@ const Login = () => {
     theme: "dark",
   };
   useEffect(() => {
-    // if (localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)) {
-    //   navigate("/");
-    // }
+
+    
+    
   }, []);
 
   const handleChange = (event) => {
@@ -60,16 +60,11 @@ const Login = () => {
         } else {
           toast.error("Users doesen't exist", toastOptions);
         }
-        //   if (data.status === true) {
-        //     localStorage.setItem(
-        //       process.env.REACT_APP_LOCALHOST_KEY,
-        //       JSON.stringify(data.user)
-        //     );
-
-            // navigate("/")
-        //   }
+  
       }
     }
+     
+   
   };
 
   return (

@@ -60,7 +60,8 @@ const Icon= styled.div`
 width: 100px;
 height: 100px;
 border-radius:50%;
-background-color: white;
+background-color:#e9f5f5 ;
+    color: gray !important;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -71,7 +72,7 @@ cursor: pointer;
 
 
 &:hover{
-    background-color:#e9f5f5 ;
+  
     transform: scale(1.1);
 }
 `;
@@ -98,7 +99,7 @@ const Home = () => {
         <Container>
           <Image src={dish} />
           <Title>Rank Dishes</Title>
-          <NavLink to="/dishlist"> <Info>
+          <NavLink to="/dishlist" style={{textDecoration: "none"}}> <Info>
               <Icon>
               <WorkspacePremiumTwoToneIcon style={{width:"80px", height:"80px"}}/>
               </Icon>
@@ -108,7 +109,7 @@ const Home = () => {
         <Container>
       <Image src={"https://graphly.io/wp-content/uploads/leaderboards-podium-star.jpg"} />
       <Title>Leaderboard</Title>
-      <NavLink to="/leaderboard"> <Info>
+      <NavLink to="/leaderboard" style={{textDecoration: "none"}}> <Info>
           <Icon>
           <LeaderboardTwoToneIcon style={{width:"80px", height:"80px"}}/>
           </Icon>

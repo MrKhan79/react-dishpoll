@@ -4,6 +4,8 @@ import dishRank from "../db/userChoices";
 
 const dishesRank = (state = dishRank, action) => {
     switch(action.type){
+        case 'FETCH':
+            return state;
         case 'SETR1':
             state.map((i)=>i.id == action.payload.id?i.rank1=action.payload.rank1: i)
             return state

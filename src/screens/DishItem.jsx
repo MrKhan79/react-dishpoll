@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "@mui/material/Card";
@@ -9,7 +9,7 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
-import { setR1, setR2, setR3 } from "../actions/dishRank";
+import { fetch, setR1, setR2, setR3 } from "../actions/dishRank";
 
 const Container = styled.div`
   margin: 20px;
@@ -52,14 +52,52 @@ const DishItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.currentUser);
-  const dishRank = useSelector((state) => state.dishesRank);
-
+  const dishRank = useSelector((state) => state.dishRank);
+  
   const [rank1, setRank1] = useState(false);
   const [rank2, setRank2] = useState(false);
   const [rank3, setRank3] = useState(false);
 
-  const handleRank1 = (e) => {
-    console.log(item.dishName);
+  const [theRank1, setTheRank1] = useState("");
+  const [theRank2, setTheRank2] = useState("");
+  const [theRank3, setTheRank3] = useState("");
+  
+  useEffect(()=>{
+    var data = JSON.parse(localStorage.getItem("rank"));
+    for(var i =0; i <= data.length -1; i++){
+      if(data[i].id == user.id){
+       data[i] = {
+         id: user.id,
+         rank1: dishRank[i].rank1,
+         rank2: dishRank[i].rank2,
+         rank3: dishRank[i].rank3,
+       }         
+      }
+    }
+    localStorage.setItem("rank", JSON.stringify(data))
+  },[])
+
+
+
+  const handleRank1 = (e,value) => {
+    // localRank1=[]
+    // localRank2=[]
+    // localRank3=[]
+    
+    // var data = {
+    //   id: user.id,
+    //   dishName: item.dishName
+    // }
+    // var nullData = {
+    //   id: user.id,
+    //   dishName: ""
+    // }
+
+    // localRank1.push(data)
+   
+
+
+
     setRank1(true);
     setRank2(false);
     setRank3(false);
@@ -72,6 +110,7 @@ const DishItem = ({ item }) => {
     dispatch(setR1(dish));
   };
   const handleRank2 = (e) => {
+
     setRank1(false);
     setRank2(true);
     setRank3(false);
@@ -84,6 +123,8 @@ const DishItem = ({ item }) => {
     dispatch(setR2(dish));
   };
   const handleRank3 = (e) => {
+
+    
     setRank1(false);
     setRank2(false);
     setRank3(true);
@@ -120,6 +161,8 @@ const DishItem = ({ item }) => {
               style={rank1 ? { color: "gold" } : {}}
               onClick={handleRank1}
               value={item.dishName}
+              rank2={rank2}
+              rank3={rank3}
             >
               <WorkspacePremiumIcon />
               <LooksOneIcon />

@@ -4,25 +4,9 @@ export const fetch = () =>{
     }
 }
 
-export const add1 = (data) =>{
+export const addPoints = (data) =>{
     return{
-        type: 'ADD1',
-        payload: data
-    }
-    
-}
-
-export const add2 = (data) =>{
-    return{
-        type: 'ADD2',
-        payload: data
-    }
-    
-}
-
-export const add3 = (data) =>{
-    return{
-        type: 'ADD3',
+        type: 'ADD_POINTS',
         payload: data
     }
     

@@ -1,8 +1,108 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import {users} from "../db/user.js"
 import DishItem from "./DishItem";
 import styled from "styled-components";
 import Navbar from './Navbar';
+import { NavLink } from "react-router-dom";
+import axios from "axios"
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
+
+
+
+const Dishes = () => {
+
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    
+    var rank = localStorage.getItem("rank")
+    rank =JSON.parse(rank);
+    var localStore = [];
+    console.log(rank)
+      if(rank === null){
+        for(var i=0; i < users.length-1; i++){
+             var a = {
+               id: users[i].id,
+               rank1:"",
+               rank2:"",
+               rank3:"",
+             }
+             localStore.push(a)
+        }
+        localStorage.setItem("rank",JSON.stringify(localStore))
+      }
+    axios
+    .get(
+      "https://raw.githubusercontent.com/syook/react-dishpoll/main/db.json"
+    )
+    .then((res) => {
+      setData(res.data);
+    });
+    
+  }, []);
+
+
+
+  const handleSubmit = () =>{
+   
+    var localStore =[]
+    var rankData = JSON.parse(localStorage.getItem("rank"))
+   
+    for(var i = 0; i < data.length -1; i++){
+       var a =0;
+       var b =0;
+       var c =0;
+
+      for(var j=0; j<=rankData.length-1; j++){
+       if(rankData[j].rank1 == data[i].dishName){
+         a = a+1
+       }
+       if(rankData[j].rank2 == data[i].dishName){
+        b = b+1
+      }
+      if(rankData[j].rank3 == data[i].dishName){
+        c = c+1
+      }
+      var z = (a*30) + (b*20) + (c*10)
+      console.log(data[i].dishName+""+z)
+      }
+      
+      var item ={
+        id: data[i].id,
+        points: z,
+      }
+     localStore.push(item);
+    }
+    localStorage.setItem("localDishesStore",JSON.stringify(localStore))
+
+  }
+
+  return (
+      <div>
+
+    <Div>
+      <Title>Please Rank The Food</Title>
+      <Desc><H>*NOTE*</H><Ul>
+        <Li>Select 3 dishes from the List</Li>
+        <Li>Each selection is given points based on the rank </Li>
+        <Li>Rank 1 gets 30 points, Rank 2 gets 20, Rank 3 gets 10</Li>
+        <Li>If there is another dish with the same rank the other dish will lose its rank</Li>
+        </Ul></Desc>
+      <Container>
+        {data.map((item) => (
+          <DishItem item={item} key={item.id} />
+        ))}
+      </Container>
+      <NavLink to="/leaderboard" style={{textDecoration: "none"}}><Button onClick={handleSubmit}>SUBMIT AND GOTO LEADERBOARD <ArrowForwardOutlinedIcon /></Button></NavLink>
+
+    </Div>
+    </div>
+  );
+};
+
+
+//////////////////////////CSS//////////////////////////
 
 
 const Container = styled.div`
@@ -42,6 +142,7 @@ width: 60vh;
 const Div = styled.div`
   display: flex;
   margin-top: 60px;
+  padding-bottom: 60px;
 
   flex-direction: column;
   justify-content: center;
@@ -70,29 +171,24 @@ margin-bottom: 5px;
 
 const Li = styled.li``;
 
+const Button = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+  background-color: #2F5D62;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      background-color: #5E8B7E;
+    }
 
-const Dishes = () => {
-  const dishes = useSelector((state) => state.dishes);
+`
 
-  return (
-      <div>
-
-    <Div>
-      <Title>Please Rank The Food</Title>
-      <Desc><H>*NOTE*</H><Ul>
-        <Li>Select 3 dishes from the List</Li>
-        <Li>Each selection is given points based on the rank </Li>
-        <Li>Rank 1 gets 30 points, Rank 2 gets 20, Rank 3 gets 10</Li>
-        <Li>If there is another dish with the same rank the other dish will lose its rank</Li>
-        </Ul></Desc>
-      <Container>
-        {dishes.map((item) => (
-          <DishItem item={item} key={item.id} />
-        ))}
-      </Container>
-    </Div>
-    </div>
-  );
-};
 
 export default Dishes;

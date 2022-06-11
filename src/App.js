@@ -1,19 +1,27 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, { useEffect, useState } from "react";
+import {useDispatch, useSelector} from "react-redux";
 import Login from "./screens/Login";
 import { Route,BrowserRouter as Router, Routes } from 'react-router-dom';
 import DishesList from "./screens/DishesList";
 import Leaderboard from "./screens/Leaderboard";
 import Home from "./screens/Home";
 import Navbar from "./screens/Navbar";
+import { addPoints } from "./actions/dishesAction";
 
 
 function App() {
 
-  const isLogged = useSelector(state => state.isLogged);
-  const dishes = useSelector(state=> state.dishes)
 
-  console.log(dishes);
+  const isLogged = useSelector(state => state.isLogged);
+  const dispatch = useDispatch();
+  
+  useEffect(()=>{
+    var data = localStorage.getItem("localDishesStore");
+    data = JSON.parse(data)
+    dispatch(addPoints(data))
+
+    
+  },[])
 
   return (
     

@@ -4,6 +4,13 @@ export const setR1 = (user) =>{
         payload: user
     }
 }
+
+export const fetch = () =>{
+    return{
+        type: 'fetch',
+    }
+}
+
 export const setR2 = (user) =>{
     return{
         type: 'SETR2',

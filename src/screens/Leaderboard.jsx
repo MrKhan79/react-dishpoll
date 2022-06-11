@@ -1,11 +1,93 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch,useSelector } from 'react-redux'
 import styled from 'styled-components'
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Navbar from './Navbar';
+import { NavLink } from 'react-router-dom';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { addPoints } from "../actions/points";
+import axios from "axios"
+
+
+
+
+const Leaderboard = () => {
+  
+  const dispatch = useDispatch();
+ const [dishList, setDishList] = useState([])
+ const currentUser = useSelector(state=> state.currentUser)
+ const dishRank = useSelector(state => state.dishRank)
+
+
+  const [points, setPoints] = useState(0);
+  var data = localStorage.getItem("localDishesStore");
+    data = JSON.parse(data)
+
+    useEffect(() => {
+      axios
+      .get(
+        "https://raw.githubusercontent.com/syook/react-dishpoll/main/db.json"
+      )
+      .then((res) => {
+        setDishList(res.data);
+      });
+  
+    }, []);
+
+
+ const [dR, setDr] = useState([])
+ const sortedDishList = data.sort((a,b) =>{
+     return a.points - b.points
+ }).reverse();
+ let filteredArr = [...new Map(dishList.map(item => [item.dishName, item])).values()]
+ console.log(filteredArr)
+ 
+
+ 
+ useEffect(() => {
+        
+        setDr(dishRank[currentUser.id -1])
+        
+    
+  },[dishRank]);
+
+
+  return (
+
+      <Div>
+    <Container>
+    <Title> LeaderBoard</Title>
+            <Desc><H>*NOTE*</H><Ul>
+        <Li><Icon><LooksOneIcon /><LooksTwoIcon /><Looks3Icon /></Icon>Denotes your ranked dish</Li>
+        </Ul></Desc>
+      <NavLink to="/dishlist" style={{textDecoration: "none"}}><Button>RE-RANK THE DISHES  <ModeEditOutlineOutlinedIcon /></Button></NavLink>
+
+        <Table>
+        
+        {sortedDishList.map((item,index) =>
+        
+        (
+          <Dish key={item.id} style={index==0?{border:"4px solid gold", transform: "scale(1.2"}:index==1?{border:"4px solid white", transform: "scale(1.15"}:index==2?{border:"4px solid #CD7F32", transform: "scale(1.1"}:{} }><No>{index+1}{index==0?<EmojiEventsIcon style={{color:"gold"}} />:<></>}
+          {index==1?<EmojiEventsIcon style={{color:"silver"}} />:<></>}
+          {index==2?<EmojiEventsIcon style={{color:"#CD7F32"}} />:<></>}</No><Name>{dishList.map((i)=>i.id==item.id?i.dishName:"")}
+         {dishList.map((i)=>i.id==item.id && dR.rank1===i.dishName?<Span><LooksOneIcon /></Span>:<></>)}
+         {dishList.map((i)=>i.id==item.id && dR.rank2===i.dishName?<Span><LooksTwoIcon /></Span>:<></>)}
+         {dishList.map((i)=>i.id==item.id && dR.rank3===i.dishName?<Span><Looks3Icon /></Span>:<></>)}
+         </Name>
+         <Points>{dishList.map((i)=>i.id==item.id?item.points:"")} pts</Points>
+         </Dish>
+        ))}
+      </Table>
+    </Container>
+    </Div>
+  )
+}
+
+
+//////////////CSS//////////////
 
 
 const Container = styled.div`
@@ -135,50 +217,24 @@ flex-direction: row;
 
 const Li = styled.li``;
 
+const Button = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 40px;
+  background-color: #2F5D62;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    &:hover {
+      background-color: #5E8B7E;
+    }
 
-const Leaderboard = () => {
-
-
- const dishList = useSelector(state=> state.dishes);
- const currentUser = useSelector(state=> state.currentUser)
- const dishRank = useSelector(state => state.dishRank)
- const [dR, setDr] = useState([])
- const sortedDishList = dishList.sort((a,b) =>{
-     return a.points - b.points
- }).reverse();
- 
-
- 
- useEffect(() => {
-
-        setDr(dishRank[currentUser.id -1])
-        console.log(sortedDishList)
-
-    
-  },[dishRank]);
-
-
-  return (
-      <Div>
-    <Container>
-    <Title> LeaderBoard</Title>
-            <Desc><H>*NOTE*</H><Ul>
-        <Li><Icon><LooksOneIcon /><LooksTwoIcon /><Looks3Icon /></Icon>Denotes your ranked dish</Li>
-        </Ul></Desc>
-        <Table>
-
-        {dishList.map((item,index) => (
-          <Dish key={item.id} style={index==0?{border:"4px solid gold"}:index==1?{border:"4px solid white"}:index==2?{border:"4px solid #CD7F32"}:{} }><No>{index+1}{index==0?<EmojiEventsIcon style={{color:"gold"}} />:<></>}
-          {index==1?<EmojiEventsIcon style={{color:"silver"}} />:<></>}
-          {index==2?<EmojiEventsIcon style={{color:"#CD7F32"}} />:<></>}</No><Name>{item.dishName}
-         {dR.rank1===item.dishName?<Span><LooksOneIcon /></Span>:<></>}
-         {dR.rank2===item.dishName?<Span><LooksTwoIcon /></Span>:<></>}
-         {dR.rank3===item.dishName?<Span><Looks3Icon /></Span>:<></>}</Name><Points>{item.points} pts</Points></Dish>
-        ))}
-      </Table>
-    </Container>
-    </Div>
-  )
-}
+`
 
 export default Leaderboard
