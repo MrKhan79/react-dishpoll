@@ -19,12 +19,11 @@ const Leaderboard = () => {
  const dishRank = useSelector(state => state.dishRank)
 
 
-  const [points, setPoints] = useState(0);
   var data = localStorage.getItem("localDishesStore");
     data = JSON.parse(data)
 
     useEffect(() => {
-        
+      window.scrollTo(0, 0)
       getData();
   
     }, []);
@@ -72,7 +71,12 @@ const Leaderboard = () => {
         {sortedDishList.map((item,index) =>
         
         (
-          <Dish key={item.id} style={index==0?{border:"4px solid gold", transform: "scale(1.2"}:index==1?{border:"4px solid white", transform: "scale(1.15"}:index==2?{border:"4px solid #CD7F32", transform: "scale(1.1"}:{} }><No>{index+1}{index==0?<EmojiEventsIcon style={{color:"gold"}} />:<></>}
+          <Dish key={item.id} 
+          style={index==0?{border:"4px solid gold", transform: "scale(1.2"}:
+          index==1?{border:"4px solid white", transform: "scale(1.15"}:
+          index==2?{border:"4px solid #CD7F32", transform: "scale(1.1"}:{} }>
+          <No>{index+1}{index==0?<EmojiEventsIcon style={{color:"gold"}} />:
+          <></>}
           {index==1?<EmojiEventsIcon style={{color:"silver"}} />:<></>}
           {index==2?<EmojiEventsIcon style={{color:"#CD7F32"}} />:<></>}</No><Name>{dishList.map((i)=>i.id==item.id?i.dishName:"")}
          {dishList.map((i)=>i.id==item.id && dR.rank1===i.id?<Span><LooksOneIcon /></Span>:<></>)}

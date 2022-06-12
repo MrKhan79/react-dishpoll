@@ -64,6 +64,8 @@ const Dishes = () => {
       localStore.push(item);
     }
     localStorage.setItem("localDishesStore", JSON.stringify(localStore));
+    window.scrollTo(0, 0)
+
   };
 
   return (

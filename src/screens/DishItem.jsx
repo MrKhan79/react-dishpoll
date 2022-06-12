@@ -43,8 +43,8 @@ const DishItem = ({ item }) => {
     const dish = {
       id: user.id,
       rank1: item.id,
-      rank2: "Idli",
-      rank3: "dosa",
+      rank2: "",
+      rank3: "",
     };
     dispatch(setR1(dish));
   };
@@ -54,9 +54,9 @@ const DishItem = ({ item }) => {
     setRank3(false);
     const dish = {
       id: user.id,
-      rank1: "sdas",
+      rank1: "",
       rank2: item.id,
-      rank3: "asda",
+      rank3: "",
     };
     dispatch(setR2(dish));
   };
