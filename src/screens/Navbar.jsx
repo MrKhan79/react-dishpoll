@@ -1,12 +1,57 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import SearchIcon from '@mui/icons-material/Search';
-import Badge from '@mui/material/Badge';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useDispatch } from 'react-redux';
 import { logout } from '../actions/isLoggedAction';
 import { NavLink } from 'react-router-dom';
+
+
+const Navbar = () => {
+
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("HOME")
+
+  const handleLogOut =()=>{
+      dispatch(logout())
+  };
+const listTitle =() =>{
+    setTitle("LIST")
+};
+const leaderTitle =() =>{
+    setTitle("LEADERBOARD")
+};
+const homeTitle =() =>{
+    setTitle("HOME")
+};
+
+  return (
+    <Container>
+        <Wrapper>
+        <Left>
+        <NavLink to="/dishlist" style={{textDecoration: "none"}} > <MenuItem onClick={listTitle} value='LIST'>LIST</MenuItem></NavLink>
+        <NavLink to="/leaderboard" style={{textDecoration: "none"}}><MenuItem onClick={leaderTitle} value='LEADERBOARD'>LEADERBOARD</MenuItem></NavLink>  
+        <NavLink to="/" style={{textDecoration: "none"}}><MenuItem onClick={homeTitle} value='HOME'>HOME</MenuItem></NavLink>
+
+        </Left>
+        
+        <Center>
+            <Logo>
+                {title}
+            </Logo>
+        </Center>
+
+        <Right>
+        <MenuItem onClick={handleLogOut}>LOGOUT<Span><PowerSettingsNewIcon /></Span></MenuItem>
+        </Right>
+      </Wrapper>
+    </Container>
+  )
+}
+
+
+
+////////////////CSS////////////////
+
 
 const Container = styled.div`
 height: 30px;
@@ -80,46 +125,5 @@ const Span = styled.span`
 padding-left: 5px;
 `
 
-const Navbar = () => {
-
-  const dispatch = useDispatch();
-  const [title, setTitle] = useState("HOME")
-
-  const handleLogOut =()=>{
-      dispatch(logout())
-  };
-const listTitle =() =>{
-    setTitle("LIST")
-};
-const leaderTitle =() =>{
-    setTitle("LEADERBOARD")
-};
-const homeTitle =() =>{
-    setTitle("HOME")
-};
-
-  return (
-    <Container>
-        <Wrapper>
-        <Left>
-        <NavLink to="/dishlist" style={{textDecoration: "none"}} > <MenuItem onClick={listTitle} value='LIST'>LIST</MenuItem></NavLink>
-        <NavLink to="/leaderboard" style={{textDecoration: "none"}}><MenuItem onClick={leaderTitle} value='LEADERBOARD'>LEADERBOARD</MenuItem></NavLink>  
-        <NavLink to="/" style={{textDecoration: "none"}}><MenuItem onClick={homeTitle} value='HOME'>HOME</MenuItem></NavLink>
-
-        </Left>
-        
-        <Center>
-            <Logo>
-                {title}
-            </Logo>
-        </Center>
-
-        <Right>
-        <MenuItem onClick={handleLogOut}>LOGOUT<Span><PowerSettingsNewIcon /></Span></MenuItem>
-        </Right>
-      </Wrapper>
-    </Container>
-  )
-}
 
 export default Navbar

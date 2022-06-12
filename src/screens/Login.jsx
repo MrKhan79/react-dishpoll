@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { users } from "../db/user.js";
-import { login, logout } from "../actions/isLoggedAction";
-import { useSelector, useDispatch } from "react-redux";
+import { login } from "../actions/isLoggedAction";
+import { useDispatch } from "react-redux";
 import { setUser } from "../actions/currentUser.js";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser);
   const [values, setValues] = useState({ username: "", password: "" });
   const toastOptions = {
     position: "bottom-right",
@@ -20,11 +17,6 @@ const Login = () => {
     draggable: true,
     theme: "dark",
   };
-  useEffect(() => {
-
-    
-    
-  }, []);
 
   const handleChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
