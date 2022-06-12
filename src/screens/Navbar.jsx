@@ -30,7 +30,6 @@ const homeTitle =() =>{
         <Left>
         <NavLink to="/dishlist" style={{textDecoration: "none"}} > <MenuItem onClick={listTitle} value='LIST'>LIST</MenuItem></NavLink>
         <NavLink to="/leaderboard" style={{textDecoration: "none"}}><MenuItem onClick={leaderTitle} value='LEADERBOARD'>LEADERBOARD</MenuItem></NavLink>  
-        <NavLink to="/" style={{textDecoration: "none"}}><MenuItem onClick={homeTitle} value='HOME'>HOME</MenuItem></NavLink>
 
         </Left>
         
@@ -55,7 +54,7 @@ const homeTitle =() =>{
 
 const Container = styled.div`
 height: 30px;
-width: 100%;
+width: 100vw;
 color: white;
 background-color: #5E8B7E;
 `

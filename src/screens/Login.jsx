@@ -37,7 +37,7 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
-      for (var i = 0; i < users.length - 1; i++) {
+      for (var i = 0; i <= users.length - 1; i++) {
         console.log(users[i].username)
         if (users[i].username === values.username) {
           if (users[i].password === values.password) {
@@ -51,6 +51,7 @@ const Login = () => {
           }
         } else {
           toast.error("Users doesen't exist", toastOptions);
+          break;
         }
   
       }
