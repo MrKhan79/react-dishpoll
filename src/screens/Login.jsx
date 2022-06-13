@@ -51,9 +51,8 @@ const Login = () => {
           }
         } else {
           toast.error("Users doesen't exist", toastOptions);
-          break;
         }
-  
+        
       }
     }
      
